@@ -1,0 +1,91 @@
+:root {
+    /* 5:7 比例設定 */
+    --card-width: 300px;
+    --card-height: 420px;
+    --slot-width: 320px; /* 每個槽位寬度，這決定了卡片間距 */
+}
+
+body {
+    margin: 0;
+    /* 舊的黑色背景刪掉 */
+    /* background: #0f0f0f; */
+
+    /* 新的漸層背景：從左上(135deg)開始 */
+    background: linear-gradient(135deg, #e4e1f0 0%, #e1e9f0 100%);
+
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: -apple-system, sans-serif;
+}
+
+/* 這裡是關鍵：橫向排列與滑動 */
+.carousel-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    width: 100%;
+    padding: 60px 0;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto; /* 無限跳轉需要 auto */
+}
+
+/* 隱藏滾動條 */
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.card-slot {
+    flex: 0 0 auto;
+    width: var(--slot-width);
+    display: flex;
+    justify-content: center;
+    scroll-snap-align: center;
+    perspective: 1000px;
+}
+
+.card {
+    width: var(--card-width);
+    height: var(--card-height);
+    position: relative;
+    transform-style: preserve-3d; /* 必須要有這行翻轉才會有 3D 感 */
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+}
+
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* 翻到背面時隱藏正面 */
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.2);
+    background-size: cover;
+    background-position: center;
+}
+
+.card-back {
+    background-color: #222;
+}
+
+.card-front {
+    transform: rotateY(180deg);
+    background-color: #fff;
+}
+
+.hint {
+    position: fixed;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+    /* 將原本淺灰色的 #888 改成深灰色的 #555 或 #333 */
+    color: #555; 
+    font-size: 14px;
+    pointer-events: none;
+}
