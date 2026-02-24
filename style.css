@@ -7,17 +7,33 @@
 
 body {
     margin: 0;
-    /* 舊的黑色背景刪掉 */
-    /* background: #0f0f0f; */
-
-    /* 新的漸層背景：從左上(135deg)開始 */
+    /* 改用 dvh，這能精確抓到 Safari 扣除工具列後的實際高度 */
+    height: 100dvh; 
     background: linear-gradient(135deg, #e4e1f0 0%, #e1e9f0 100%);
-
     display: flex;
+    flex-direction: column; /* 讓內容垂直排列 */
+    justify-content: center; /* 垂直置中 */
     align-items: center;
-    height: 100vh;
     overflow: hidden;
     font-family: -apple-system, sans-serif;
+}
+
+.carousel-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    width: 100%;
+    /* 確保容器高度不要被撐開，給它一個固定高度或彈性空間 */
+    height: 500px; 
+    margin: 0;
+    padding: 0; /* 先歸零 */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+    align-items: center; /* 確保裡面的卡片在容器內垂直置中 */
+
+    /* 之前那個讓你左右置中的關鍵 padding 必須要放，不然第一張會歪掉 */
+    padding-left: calc((100vw - var(--slot-width)) / 2);
+    padding-right: calc((100vw - var(--slot-width)) / 2);
 }
 
 /* 這裡是關鍵：橫向排列與滑動 */
@@ -80,12 +96,11 @@ body {
 }
 
 .hint {
-    position: fixed;
-    bottom: 30px;
-    width: 100%;
-    text-align: center;
-    /* 將原本淺灰色的 #888 改成深灰色的 #555 或 #333 */
-    color: #555; 
+    /* 如果怕疊在一起，可以考慮不用 fixed，而是放在 flex 佈局的最後 */
+    margin-top: 20px;
+    color: #555;
     font-size: 14px;
-    pointer-events: none;
+    text-align: center;
+    width: 100%;
+    z-index: 10;
 }
