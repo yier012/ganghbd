@@ -98,7 +98,7 @@ body {
 .hint {
     position: fixed;
     /* 將原本的 50px 改成 100px 或是更大，這會讓字明顯往上提 */
-    bottom: calc(100px + env(safe-area-inset-bottom)); 
+    bottom: calc(50px + env(safe-area-inset-bottom)); 
     
     width: 100%;
     text-align: center;
