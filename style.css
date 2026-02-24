@@ -96,11 +96,18 @@ body {
 }
 
 .hint {
-    /* 如果怕疊在一起，可以考慮不用 fixed，而是放在 flex 佈局的最後 */
-    margin-top: 0px;
+    position: fixed;
+    /* 將原本的 50px 改成 100px 或是更大，這會讓字明顯往上提 */
+    bottom: calc(100px + env(safe-area-inset-bottom)); 
+    
+    width: 100%;
+    text-align: center;
     color: #555;
     font-size: 14px;
-    text-align: center;
-    width: 100%;
-    z-index: 10;
+    font-weight: 500;
+    pointer-events: none;
+    z-index: 100;
+
+    /* 加一點透明度讓它不要太搶戲 */
+    opacity: 0.8;
 }
