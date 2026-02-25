@@ -1,5 +1,21 @@
 const carousel = document.getElementById('carousel');
 
+const cover = document.getElementById('cover');
+const bgm = document.getElementById('bgm');
+
+cover.addEventListener('click', () => {
+    // 播放音樂
+    bgm.play().catch(e => console.log("音樂播放失敗:", e));
+    
+    // 移除封面
+    cover.classList.add('fade-out');
+    
+    // 延遲初始化卡片定位，確保畫面渲染正確
+    setTimeout(() => {
+        initCarousel();
+    }, 100);
+});
+
 // 1. 設定統一的卡背圖片路徑
 const backImage = 'images/card_back.jpg'; 
 
@@ -13,7 +29,7 @@ const frontImages = [
     'images/friend6.jpg',
     'images/friend7.jpg',
     'images/friend8.jpg',
-    'images/friend9.jpg'
+    'images/friend9.png'
 ];
 
 // 為了實現流暢的無限捲動，我們複製前後各 3 張

@@ -111,3 +111,49 @@ body {
     /* 加一點透明度讓它不要太搶戲 */
     opacity: 0.8;
 }
+.cover-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh; /* 確保在 Safari 也是滿版 */
+    
+    /* 這裡替換成你的封面圖片檔名 */
+    background-image: url('ogp.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* 把提示放在靠近底部 */
+    padding-bottom: 80px; /* 距離底部的距離 */
+    
+    z-index: 2000;
+    cursor: pointer;
+    transition: opacity 1s ease, visibility 1s;
+}
+
+/* 小小的提示文字 */
+.enter-hint {
+    color: white;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* 防止圖片太亮看不清字 */
+    background: rgba(0, 0, 0, 0.2); /* 淡淡的底色 */
+    padding: 8px 20px;
+    border-radius: 20px;
+    animation: pulse 2s infinite; /* 呼吸燈效果 */
+}
+
+/* 呼吸動畫 */
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* 封面淡出 */
+.cover-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
