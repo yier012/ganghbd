@@ -65,9 +65,13 @@ body {
     width: var(--card-width);
     height: var(--card-height);
     position: relative;
-    transform-style: preserve-3d; /* 必須要有這行翻轉才會有 3D 感 */
+    transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     cursor: pointer;
+
+    /* 加入這兩行強制開啟 GPU 硬體加速，解決閃爍 */
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .card.is-flipped {
@@ -78,9 +82,12 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden; /* 翻到背面時隱藏正面 */
+    /* 針對 Safari 的閃爍修正 */
+    -webkit-backface-visibility: hidden; 
+    backface-visibility: hidden;
+    
     border-radius: 18px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
     border: 1px solid rgba(255,255,255,0.2);
     background-size: cover;
     background-position: center;
@@ -116,9 +123,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100dvh; /* 確保在 Safari 也是滿版 */
-    
-    /* 這裡替換成你的封面圖片檔名 */
+    height: 100dvh;
     background-image: url('ogp.png'); 
     background-size: cover;
     background-position: center;
@@ -126,8 +131,11 @@ body {
     
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* 把提示放在靠近底部 */
-    padding-bottom: 80px; /* 距離底部的距離 */
+    align-items: flex-end; 
+
+    /* 這裡把原本的 80px 加大，數字越大字就越高 */
+    /* 使用 dvh 單位可以更精準對應螢幕比例 */
+    padding-bottom: 20dvh; 
     
     z-index: 2000;
     cursor: pointer;
@@ -141,7 +149,8 @@ body {
     letter-spacing: 2px;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* 防止圖片太亮看不清字 */
     background: rgba(0, 0, 0, 0.2); /* 淡淡的底色 */
-    padding: 8px 20px;
+    padding: 8px 30px;
+    margin-bottom: 20px;
     border-radius: 20px;
     animation: pulse 2s infinite; /* 呼吸燈效果 */
 }

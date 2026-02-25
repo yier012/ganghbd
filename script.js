@@ -55,7 +55,7 @@ extendedImages.forEach((imgUrl) => {
 });
 
 // 定位與捲動邏輯
-const slotWidth = 300; // 必須與 CSS 的 --slot-width 相同
+const slotWidth = 320; // 必須與 CSS 的 --slot-width 相同
 const totalRealCards = frontImages.length;
 
 function initCarousel() {
